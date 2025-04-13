@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1837</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            border: 1px solid black;
+            padding: 20px;
+            position: relative;
+        }
+        .time-box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: 1px solid black;
+            padding: 5px 10px;
+            font-size: 16px;
+            background-color: lightgray;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input, select, textarea {
+            width: 200px;
+            margin-bottom: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .button-container {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="time-box" id="clock">Time: --:--:--</div>
+    
+    <h2>Test JavaScript Form Validation</h2>
+    
+    <form id="myForm">
+        <label>Name*</label>
+        <input type="text" id="name">
+        <span class="error" id="nameError"></span><br>
+
+        <label>Address</label>
+        <textarea id="address"></textarea><br>
+
+        <label>Zip Code*</label>
+        <input type="text" id="zip">
+        <span class="error" id="zipError"></span><br>
+
+        <label>Country*</label>
+        <select id="country">
+            <option value="">Please select...</option>
+            <option value="USA">USA</option>
+            <option value="India">India</option>
+            <option value="UK">UK</option>
+        </select>
+        <span class="error" id="countryError"></span><br>
+
+        <label>Gender*</label>
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female
+        <span class="error" id="genderError"></span><br>
+
+        <label>Preferences*</label>
+        <input type="checkbox" name="preference" value="Red"> Red
+        <input type="checkbox" name="preference" value="Green"> Green
+        <input type="checkbox" name="preference" value="Blue"> Blue
+        <span class="error" id="preferenceError"></span><br>
+
+        <label>Phone*</label>
+        <input type="text" id="phone">
+        <span class="error" id="phoneError"></span><br>
+
+        <label>Email*</label>
+        <input type="email" id="email">
+        <span class="error" id="emailError"></span><br>
+
+        <label>Password (6-8 characters)*</label>
+        <input type="password" id="password">
+        <span class="error" id="passwordError"></span><br>
+
+        <label>Verify Password*</label>
+        <input type="password" id="confirmPassword">
+        <span class="error" id="confirmPasswordError"></span><br>
+
+        <label>PAN No:</label>
+        <input type="text" id="pan">
+        <span class="error" id="panError"></span><br>
+
+        <div class="button-container">
+            <button type="submit">SEND</button>
+            <button type="reset">CLEAR</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Function to update time every second
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        document.getElementById("clock").textContent = `Time: ${hours}:${minutes}:${seconds}`;
+    }
+    setInterval(updateClock, 1000); // Update every second
+    updateClock(); // Initialize clock immediately
+
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+        let isValid = true;
+
+        // Name Validation
+        let name = document.getElementById("name").value;
+        if (name.trim() === "") {
+            document.getElementById("nameError").textContent = "Please enter your name!";
+            isValid = false;
+        } else {
+            document.getElementById("nameError").textContent = "";
+        }
+
+        // Zip Code Validation (Only numbers, 6 digits)
+        let zip = document.getElementById("zip").value;
+        if (!/^\d{6}$/.test(zip)) {
+            document.getElementById("zipError").textContent = "Invalid Zip Code (6 digits)";
+            isValid = false;
+        } else {
+            document.getElementById("zipError").textContent = "";
+        }
+
+        // Country Validation
+        let country = document.getElementById("country").value;
+        if (country === "") {
+            document.getElementById("countryError").textContent = "Please select a country!";
+            isValid = false;
+        } else {
+            document.getElementById("countryError").textContent = "";
+        }
+
+        // Gender Validation
+        let gender = document.querySelector('input[name="gender"]:checked');
+        if (!gender) {
+            document.getElementById("genderError").textContent = "Please select a gender!";
+            isValid = false;
+        } else {
+            document.getElementById("genderError").textContent = "";
+        }
+
+        // Preferences Validation
+        let preferences = document.querySelectorAll('input[name="preference"]:checked');
+        if (preferences.length === 0) {
+            document.getElementById("preferenceError").textContent = "Please select at least one preference!";
+            isValid = false;
+        } else {
+            document.getElementById("preferenceError").textContent = "";
+        }
+
+        // Phone Number Validation (10 digits)
+        let phone = document.getElementById("phone").value;
+        if (!/^\d{10}$/.test(phone)) {
+            document.getElementById("phoneError").textContent = "Invalid phone number (10 digits)";
+            isValid = false;
+        } else {
+            document.getElementById("phoneError").textContent = "";
+        }
+
+        // Email Validation
+        let email = document.getElementById("email").value;
+        let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!email.match(emailPattern)) {
+            document.getElementById("emailError").textContent = "Invalid email format!";
+            isValid = false;
+        } else {
+            document.getElementById("emailError").textContent = "";
+        }
+
+        // Password Validation (6-8 characters)
+        let password = document.getElementById("password").value;
+        if (!/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{6,8}$/.test(password)) {
+            document.getElementById("passwordError").textContent = "Password must be 6-8 chars, with a letter, number & special character!";
+            isValid = false;
+        } else {
+            document.getElementById("passwordError").textContent = "";
+        }
+
+        // Confirm Password Validation
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        if (confirmPassword !== password) {
+            document.getElementById("confirmPasswordError").textContent = "Passwords do not match!";
+            isValid = false;
+        } else {
+            document.getElementById("confirmPasswordError").textContent = "";
+        }
+
+        // PAN Number Validation
+        let pan = document.getElementById("pan").value;
+        if (pan && !/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan)) {
+            document.getElementById("panError").textContent = "Invalid PAN format!";
+            isValid = false;
+        } else {
+            document.getElementById("panError").textContent = "";
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+</body>
+</html>

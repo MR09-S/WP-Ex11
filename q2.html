@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1837</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { margin: 20px; }
+        .stopwatch, .age-calculator, .char-counter { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="stopwatch">
+            <h2>Stopwatch</h2>
+            <p id="timer">00:00:00</p>
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+            <button id="reset">Reset</button>
+        </div>
+
+        <div class="age-calculator">
+            <h2>Age Calculator</h2>
+            <label for="dob">Enter Date of Birth:</label>
+            <input type="date" id="dob">
+            <p id="age-result">Age will be shown here.</p>
+        </div>
+
+        <div class="char-counter">
+            <h2>Character Counter</h2>
+            <textarea id="text-area" rows="4" cols="50" placeholder="Type here..."></textarea>
+            <p>Characters: <span id="char-count">0</span></p>
+        </div>
+
+    </div>
+
+    <script src="q2.js"></script>
+</body>
+</html>
